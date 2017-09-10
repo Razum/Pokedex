@@ -1,0 +1,18 @@
+.wrapper {
+  position: relative;
+  padding: 1rem;
+}
+
+.input {
+  height: 3rem;
+  line-height: 3rem;
+  border: 1px solid darken(color(gray), 20);
+  width: 100%;
+  font-size: 1.5rem;
+  padding: 0 1rem;
+  transition: box-shadow 0.15s ease;
+
+  &:focus {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+  }
+}

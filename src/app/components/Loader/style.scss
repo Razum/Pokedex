@@ -1,0 +1,91 @@
+@keyframes blink {
+  0% {
+    background-color: color(white);
+  }
+
+  50% {
+    background-color: rgba(color(red), 0.5);
+  }
+
+  100% {
+    background-color: color(white);
+  }
+}
+
+@keyframes roll {
+  0% {
+    transform: translateX(-50%) rotate(-45deg);
+  }
+
+  50% {
+    transform: translateX(50%) rotate(45deg);
+  }
+
+  100% {
+    transform: translateX(-50%) rotate(-45deg);
+  }
+}
+
+
+.wrapper {
+  @include flex(column, center,  center);
+  background-color: rgba(darken(color(gray), 10), 0.85);
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.text {
+  font-size: 3.5rem;
+  margin-top: -2rem;
+  color: color(black);
+}
+
+.ball {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  border: 2px solid color(gray);
+  background: linear-gradient(to bottom, #eb2224 49%,#f9f9f9 51%);
+  overflow: hidden;
+  position: relative;
+  animation: roll 2s ease infinite;
+
+  &:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 0.75rem;
+    background-color: color(black);
+  }
+}
+
+.innerball {
+  position: absolute;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: color(white);
+  border: 5px solid color(black);
+
+  &:before {
+    content: "";
+    width: 2.5rem;
+    height: 2.5rem;
+    position: absolute;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid color(black);
+    animation: blink 2s ease infinite;
+  }
+}

@@ -1,0 +1,9 @@
+.header {
+  @include flex(row, center, center);
+  height: 300px;
+  width: 100%;
+  font-size: 8rem;
+  font-family: 'Pokemon', sans-serif;
+  background: url('./pokemon.png') no-repeat center, radial-gradient(ellipse at center, #ffffff 0%,#f74131 100%);
+  background-size: contain;
+}

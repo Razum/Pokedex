@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filter component should match snapshot 1`] = `
+<div
+  className="wrapper"
+>
+  <input
+    className="input"
+    onChange={[Function]}
+    type="text"
+  />
+</div>
+`;
