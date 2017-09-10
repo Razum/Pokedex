@@ -1,13 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import {
-  Link
-} from 'react-router-dom'
 
 import style from './style.scss'
-
-const joinComponents = (prev, curr) => prev === null ? [curr] : [...prev, ', ', curr]
+// TODO: add image placeholder
 const PokemonCard = ({ name, height, weight, sprites, types, className }) => (
   <div className={classNames(style.card, className)}>
     <div className='w-25'>
@@ -17,7 +13,7 @@ const PokemonCard = ({ name, height, weight, sprites, types, className }) => (
       <div className={style.name}>{name}</div>
       <div className={style.types}>
         {
-          types.map(t => <Link to={`/${t.type.name}`} key={t.type.name}>{t.type.name}</Link>).reduce(joinComponents, null)
+          types.map(t => t.type.name).join(', ')
         }
       </div>
       <div>Weight: {weight}</div>

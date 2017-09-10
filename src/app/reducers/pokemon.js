@@ -1,4 +1,4 @@
-import { FETCH_POKEMONS, FETCH_POKEMONS_SUCCESS } from '../constants/actionTypes'
+import { FETCH_POKEMONS, FETCH_POKEMONS_SUCCESS, FETCH_POKEMONS_FAIL } from '../constants/actionTypes'
 
 const initialState = {
   isFetching: false,
@@ -15,6 +15,8 @@ export default function pokemonReducer (state = initialState, action) {
         pokemons.items[pokemon.name] = pokemon
       }
       return pokemons
+    case FETCH_POKEMONS_FAIL:
+      return {...state, isFetching: false}
     default:
       return state
   }

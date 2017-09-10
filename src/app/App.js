@@ -13,7 +13,6 @@ const App = () => (
       <Header />
       <div className='container flex-1'>
         <Route exact path='/' component={Pokedex} />
-        <Route exact path='/:category' component={Pokedex} />
       </div>
     </div>
   </Router>

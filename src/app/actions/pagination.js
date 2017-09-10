@@ -1,5 +1,5 @@
-import {FETCH_POKEMONS, GET_PAGE_ITEMS} from '../constants/actionTypes'
-import { fetchPokemonsList, fetchPokemonsDetailedList } from './pokemonActions'
+import {FETCH_POKEMONS, FETCH_POKEMONS_FAIL, GET_PAGE_ITEMS} from '../constants/actionTypes'
+import { fetchPokemonsList, fetchPokemonsDetailedList } from './pokemon'
 import { take } from 'lodash'
 
 export function goToPage (page = 0) {
@@ -12,9 +12,13 @@ export function goToPage (page = 0) {
       names = [...paging.pages[page]]
     } else {
       dispatch({ type: FETCH_POKEMONS })
-      const response = await fetchPokemonsList(page * perPage)
-      names = response.results.map(r => r.name)
-      total = response.count
+      try {
+        const response = await fetchPokemonsList(page * perPage)
+        names = response.results.map(r => r.name)
+        total = response.count
+      } catch (e) {
+        dispatch({ type: FETCH_POKEMONS_FAIL })
+      }
     }
     const pokemons = getState().pokemons.items
     dispatch({

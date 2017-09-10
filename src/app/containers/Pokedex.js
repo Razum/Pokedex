@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { fetchPokemonsDetailedList } from '../actions/pokemonActions'
-import { goToPage } from '../actions/paginationActions'
+import { fetchPokemonsDetailedList } from '../actions/pokemon'
+import { goToPage } from '../actions/pagination'
 import {getPokemonsPerPage} from '../libs/selectrors'
 
 import PokemonList from '../components/PokemonList'
@@ -20,6 +20,7 @@ class Pokedex extends React.PureComponent {
     this.setFilterTerm = this.setFilterTerm.bind(this)
   }
   componentDidMount () {
+    // TODO: replace with fetchPokemons(page, perPage)
     this.props.goToPage(0)
   }
   setFilterTerm (filterTerm) {

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import pokemonReducer from './pokemonReducer'
-import paginationReducer from './paginationReducer'
+import pokemonReducer from './pokemon'
+import paginationReducer from './pagination'
 
 const PokedexReducer = combineReducers({
   pokemons: pokemonReducer,
