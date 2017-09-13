@@ -2,8 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { fetchPokemonsDetailedList } from '../actions/pokemon'
-import { goToPage } from '../actions/pagination'
+import { fetchPokemons } from '../actions/pokemon'
 import {getPokemonsPerPage} from '../libs/selectrors'
 
 import PokemonList from '../components/PokemonList'
@@ -20,8 +19,7 @@ class Pokedex extends React.PureComponent {
     this.setFilterTerm = this.setFilterTerm.bind(this)
   }
   componentDidMount () {
-    // TODO: replace with fetchPokemons(page, perPage)
-    this.props.goToPage(0)
+    this.props.fetchPokemons(0)
   }
   setFilterTerm (filterTerm) {
     this.setState({filterTerm})
@@ -36,8 +34,8 @@ class Pokedex extends React.PureComponent {
     return (
       <div>
         <Filter callback={this.setFilterTerm} />
-        <PokemonList pokemons={this.pokemons} />
-        <Pagination {...this.props.pagination} goToPage={this.props.goToPage} />
+        {!this.props.isFetching && <PokemonList pokemons={this.pokemons} />}
+        {!this.props.isFetching && <Pagination {...this.props.pagination} goToPage={this.props.fetchPokemons} />}
         <Loader isShown={this.props.isFetching} />
       </div>
     )
@@ -45,19 +43,17 @@ class Pokedex extends React.PureComponent {
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ fetchPokemonsDetailedList, goToPage }, dispatch)
+  return bindActionCreators({ fetchPokemons }, dispatch)
 }
 
 function mapStateToProps (state) {
-  return { pokemons: getPokemonsPerPage(state), pagination: state.pagination, isFetching: state.pokemons.isFetching }
+  return { pokemons: getPokemonsPerPage(state.pokemons.items, state.pagination.main.pages[state.pagination.main.current]), pagination: state.pagination.main, isFetching: state.pokemons.isFetching }
 }
 
 Pokedex.propTypes = {
   pokemons: PropTypes.array,
-  fetchPokemonsDetailedList: PropTypes.func,
-  goToPage: PropTypes.func,
+  fetchPokemons: PropTypes.func,
   isFetching: PropTypes.bool,
-  match: PropTypes.object,
   pagination: PropTypes.object
 }
 

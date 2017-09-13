@@ -15,6 +15,16 @@ class Pagination extends React.Component {
     const current = this.props.current
     const total = this.numberOfPages
     const pages = []
+    if (total < 10) {
+      for (let i = 0; i < total; i++) {
+        if (i === current) {
+          pages.push(<span key={i} className={style.current}>{i + 1}</span>)
+        } else {
+          pages.push(<span key={i} onClick={() => this.goTo(i)}>{i + 1}</span>)
+        }
+      }
+      return pages
+    }
     if (current < LIMIT - 1) {
       for (let i = 0; i < LIMIT; i++) {
         if (i === current) {
@@ -25,6 +35,7 @@ class Pagination extends React.Component {
       }
       pages.push('...')
       pages.push(<span key={total} onClick={() => this.goTo(total)}>{total + 1}</span>)
+      return pages
     }
 
     if (current >= LIMIT - 1 && current <= total - LIMIT + 1) {
@@ -39,6 +50,7 @@ class Pagination extends React.Component {
       }
       pages.push('...')
       pages.push(<span key={total} onClick={() => this.goTo(total)}>{total + 1}</span>)
+      return pages
     }
 
     if (current > total - LIMIT + 1) {
@@ -51,6 +63,7 @@ class Pagination extends React.Component {
           pages.push(<span key={i} onClick={() => this.goTo(i)}>{i + 1}</span>)
         }
       }
+      return pages
     }
     return pages
   }

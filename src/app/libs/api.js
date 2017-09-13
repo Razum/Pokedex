@@ -39,5 +39,5 @@ export function getPokemon (name) {
  * @return {Promise}
  */
 export function getPokemonsByType (type) {
-  return axios.get(getEndpoint(`type/${type}`))
+  return axios.get(getEndpoint(`type/${type}`)).then(response => response.data)
 }

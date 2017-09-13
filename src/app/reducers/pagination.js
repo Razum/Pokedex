@@ -1,22 +1,39 @@
-import {GET_PAGE_ITEMS} from '../constants/actionTypes'
+import {SET_POKEMON_PAGING, SET_CATEGORY_PAGING} from '../constants/actionTypes'
 
 const initialState = {
-  current: 0,
-  perPage: 20,
-  total: 0,
-  pages: {}
+  main: {
+    current: 0,
+    perPage: 20,
+    total: 0,
+    pages: {}
+  },
+  category: {
+    perPage: 20
+  }
 }
 
 export default function paginationReducer (state = initialState, action) {
   switch (action.type) {
-    case GET_PAGE_ITEMS:
+    case SET_POKEMON_PAGING:
       return {
         ...state,
-        current: action.payload.page,
-        total: action.payload.total,
-        pages: {
-          ...state.pages,
-          [action.payload.page]: action.payload.items
+        main: {
+          ...state.main,
+          current: action.payload.current,
+          total: action.payload.total,
+          pages: action.payload.pages
+        }
+      }
+    case SET_CATEGORY_PAGING:
+      return {
+        ...state,
+        category: {
+          ...state.category,
+          [action.payload.category]: {
+            total: action.payload.total,
+            pages: action.payload.pages,
+            current: action.payload.current
+          }
         }
       }
     default:

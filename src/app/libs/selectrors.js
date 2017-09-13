@@ -1,8 +1,8 @@
-export function getPokemonsPerPage ({pagination, pokemons}) {
-  const names = pagination.pages[pagination.current] || []
+export function getPokemonsPerPage (pokemons = [], names = []) {
+  console.log(pokemons, names)
   const arr = []
   names.forEach((name) => {
-    pokemons.items[name] && arr.push(pokemons.items[name])
+    pokemons[name] && arr.push(pokemons[name])
   })
   return arr
 }
