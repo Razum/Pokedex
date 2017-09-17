@@ -59,7 +59,6 @@ function mapStateToProps (state, props) {
   const category = props.match.params.category
   let {perPage} = state.pagination.category
   let {total, pages = {}, current} = state.pagination.category[category] || {}
-  console.log(total, pages, current)
   return { pokemons: getPokemonsPerPage(state.pokemons.items, pages[current]), pagination: {perPage, total, current}, isFetching: state.pokemons.isFetching }
 }
 

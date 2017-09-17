@@ -1,10 +1,12 @@
 import { FETCH_POKEMONS_SUCCESS, FETCH_POKEMONS_FAIL, SET_POKEMON_PAGING, FETCH_POKEMONS, SET_CATEGORY_PAGING } from '../constants/actionTypes'
 import { getPokemons, getPokemon, getPokemonsByType } from '../libs/api'
-import {take, chunk} from 'lodash'
+import take from 'lodash/take'
+import chunk from 'lodash/chunk'
+import assign from 'lodash/assign'
 
 export async function fetchPokemonsList (offset) {
   const response = await getPokemons({offset})
-  return response.data
+  return response
 }
 
 export function fetchPokemonsDetailedList (names) {
@@ -12,7 +14,7 @@ export function fetchPokemonsDetailedList (names) {
     const requestArr = names.map(name => getPokemon(name))
     try {
       const details = await Promise.all(requestArr)
-      dispatch({ type: FETCH_POKEMONS_SUCCESS, payload: {pokemons: details.map(pokemon => pokemon.data)} })
+      dispatch({ type: FETCH_POKEMONS_SUCCESS, payload: {pokemons: details} })
     } catch (e) {
       dispatch({ type: FETCH_POKEMONS_FAIL })
     }
@@ -23,7 +25,7 @@ export function fetchPokemons (page = 0) {
   return async (dispatch, getState) => {
     let total = getState().pagination.main.total
     let perPage = getState().pagination.main.perPage
-    let pages = getState().pagination.main.pages
+    let pages = assign({}, getState().pagination.main.pages)
     const pokemonsDB = getState().pokemons.items
     dispatch({ type: FETCH_POKEMONS })
     if (!total) {
@@ -46,7 +48,8 @@ export function fetchPokemons (page = 0) {
 
 export function fetchCategoryPokemons (page = 0, category) {
   return async (dispatch, getState) => {
-    let {total, pages} = getState().pagination.category[category] || {}
+    let total = (getState().pagination.category[category] || {}).total
+    let pages = assign({}, (getState().pagination.category[category] || {}).pages)
     let perPage = getState().pagination.category.perPage
     let pokemons = []
     const pokemonsDB = getState().pokemons.items

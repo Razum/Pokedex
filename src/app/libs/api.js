@@ -10,7 +10,7 @@ const API_VERSION = 'v2'
  * @param  {String} endpoint The path of the call
  * @return {String} Properly formed URL
  */
-function getEndpoint (endpoint = '') {
+export function getEndpoint (endpoint = '') {
   return url.resolve(API_URL, path.join(API_VERSION, endpoint))
 }
 
@@ -21,7 +21,7 @@ function getEndpoint (endpoint = '') {
  * @return {Promise}
  */
 export function getPokemons (params) {
-  return axios.get(getEndpoint('pokemon'), {params})
+  return axios.get(getEndpoint('pokemon'), {params}).then(response => response.data)
 }
 
 /**
@@ -30,7 +30,7 @@ export function getPokemons (params) {
  * @return {Promise}
  */
 export function getPokemon (name) {
-  return axios.get(getEndpoint(`pokemon/${name}`))
+  return axios.get(getEndpoint(`pokemon/${name}`)).then(response => response.data)
 }
 
 /**
