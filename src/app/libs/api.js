@@ -1,9 +1,7 @@
 import axios from 'axios'
-import path from 'path'
 import url from 'url'
 
-const API_URL = 'http://pokeapi.co/api/'
-const API_VERSION = 'v2'
+import { API_URL } from '../constants/globals'
 
 /**
  * Form an API endpoint URL
@@ -11,7 +9,7 @@ const API_VERSION = 'v2'
  * @return {String} Properly formed URL
  */
 export function getEndpoint (endpoint = '') {
-  return url.resolve(API_URL, path.join(API_VERSION, endpoint))
+  return url.resolve(API_URL, endpoint)
 }
 
 /**
